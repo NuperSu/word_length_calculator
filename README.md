@@ -1,4 +1,83 @@
-# Word Length Calculator Plugin for PyCharm
+# Task 1: Analysis of the Java Code
+
+The original code has a few problems:
+
+1. **Using `String` as a Lock Object**:  
+   Strings in Java are pooled and can be shared between different parts of the application. Using a
+   dedicated `Object` instance for locking is better.
+
+2. **Exception Handling for `wait()`**:  
+   The `wait()` method can throw an `InterruptedException`, which is not handled in the code.
+   Ignoring exceptions can lead to unexpected behavior.
+
+3. **Thread Safety Concerns**:  
+   The `shouldWait` variable is accessed without proper synchronization, which could lead to
+   visibility issues in a multithreaded environment.
+
+4. **Potential Deadlock**:  
+   If `wait()` is called when no other thread is available to call `notifyAll()`, the program might
+   get stuck indefinitely.
+
+---
+
+### Corrected Java Code
+
+Corrected version of the Java code:
+
+```java
+public class MyClass {
+
+  private final Object myLock = new Object();
+  private boolean shouldWait = true;
+
+  public void foo() {
+    synchronized (myLock) {
+      try {
+        if (shouldWait) {
+          myLock.wait();
+        }
+        // Perform some work
+        myLock.notifyAll();
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        System.err.println("Thread was interrupted: " + e.getMessage());
+      }
+    }
+  }
+}
+```
+
+---
+
+### Kotlin Version of the Code
+
+The Kotlin version of the code makes the same corrections
+
+```kotlin
+class MyClass {
+   private val myLock = Any()
+
+   @Volatile
+   var shouldWait = true
+
+   fun foo() {
+      synchronized(myLock) {
+         try {
+            if (shouldWait) {
+               myLock.wait()
+            }
+            // Perform some work
+            myLock.notifyAll()
+         } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+            println("Thread was interrupted: ${e.message}")
+         }
+      }
+   }
+}
+```
+
+# Task 2: Word Length Calculator Plugin for PyCharm
 
 The **Word Length Calculator** is a simple plugin for PyCharm that calculates and displays the
 length of each word in the selected text. This plugin is designed to integrate seamlessly with the
