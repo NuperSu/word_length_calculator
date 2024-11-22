@@ -82,12 +82,19 @@ public class WordLengthAction extends AnAction {
   }
 
   private String getPythonScript(String text) {
-    return "text = " + text.replace("'", "\\'") + "\n" +
-        "words = text.split()\n" +
-        "for word in words:\n" +
-        "    # Strip punctuation for more accurate length\n" +
-        "    clean_word = word.strip('.,!?()[]{}\":;')\n" +
-        "    print(f\"'{word}': {len(clean_word)} characters\")";
+    // Safely escape the text input
+    String escapedText = text.replace("'", "\\'").replace("\n", "\\n").replace("\r", "\\r");
+
+    // Return properly formatted Python code
+    return String.format(
+        "text = '''%s'''\n" +
+            "words = text.split()\n" +
+            "for word in words:\n" +
+            "    # Strip punctuation for more accurate length\n" +
+            "    clean_word = word.strip('.,!?()[]{}\":;')\n" +
+            "    print(f\"'{word}': {len(clean_word)} characters\")",
+        escapedText
+    );
   }
 
   @Override
