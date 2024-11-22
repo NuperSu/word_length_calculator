@@ -16,11 +16,14 @@ import java.io.InputStreamReader;
 
 public class WordLengthAction extends AnAction {
 
+  private String getPythonScriptPath() {
+    return getClass().getClassLoader().getResource("python/word_length.py").getPath();
+  }
+
   @Override
   public void actionPerformed(@NotNull AnActionEvent event) {
     Project project = event.getProject();
     String selectedText = event.getData(CommonDataKeys.EDITOR).getSelectionModel().getSelectedText();
-
     if (selectedText == null || selectedText.isEmpty()) {
       Messages.showMessageDialog(project,
           "No text selected.",
@@ -35,7 +38,6 @@ public class WordLengthAction extends AnAction {
       Messages.showErrorDialog(project, "No modules found", "Error");
       return;
     }
-
     Sdk pythonSdk = PythonSdkUtil.findPythonSdk(modules[0]);
     if (pythonSdk == null || pythonSdk.getHomePath() == null) {
       Messages.showErrorDialog(project, "Python interpreter not found", "Error");
@@ -44,10 +46,15 @@ public class WordLengthAction extends AnAction {
 
     try {
       // Execute the Python script using the project's Python interpreter
+      String scriptPath = getPythonScriptPath();
+      if (scriptPath == null) {
+        Messages.showErrorDialog(project, "Python script not found", "Error");
+        return;
+      }
       ProcessBuilder processBuilder = new ProcessBuilder(
           pythonSdk.getHomePath(),
-          "-c",
-          getPythonScript(selectedText)
+          scriptPath,
+          selectedText
       );
       processBuilder.redirectErrorStream(true);
       Process process = processBuilder.start();
@@ -59,7 +66,6 @@ public class WordLengthAction extends AnAction {
       while ((line = reader.readLine()) != null) {
         outputBuilder.append(line).append("\n");
       }
-
       int exitCode = process.waitFor();
       if (exitCode == 0) {
         Messages.showMessageDialog(project,
@@ -72,7 +78,6 @@ public class WordLengthAction extends AnAction {
             "Error",
             Messages.getErrorIcon());
       }
-
     } catch (Exception e) {
       Messages.showMessageDialog(project,
           "Exception: " + e.getMessage(),
@@ -81,21 +86,6 @@ public class WordLengthAction extends AnAction {
     }
   }
 
-  private String getPythonScript(String text) {
-    // Safely escape the text input
-    String escapedText = text.replace("'", "\\'").replace("\n", "\\n").replace("\r", "\\r");
-
-    // Return properly formatted Python code
-    return String.format(
-        "text = '''%s'''\n" +
-            "words = text.split()\n" +
-            "for word in words:\n" +
-            "    # Strip punctuation for more accurate length\n" +
-            "    clean_word = word.strip('.,!?()[]{}\":;')\n" +
-            "    print(f\"'{word}': {len(clean_word)} characters\")",
-        escapedText
-    );
-  }
 
   @Override
   public void update(@NotNull AnActionEvent e) {

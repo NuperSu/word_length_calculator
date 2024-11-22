@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.intellij.sdk"
-version = "0.1.2"
+version = "0.1.4"
 
 repositories {
   mavenCentral()
@@ -33,5 +33,12 @@ tasks {
     version.set("${project.version}")
     sinceBuild.set("241")
     untilBuild.set("243.*")
+  }
+
+  processResources {
+    from("src/main/resources") {
+      include("**/*")
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
   }
 }
