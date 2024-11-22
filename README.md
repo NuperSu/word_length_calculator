@@ -3,7 +3,7 @@
 The original code has a few problems:
 
 1. **Using `String` as a Lock Object**:  
-   Strings in Java are pooled and can be shared between different parts of the application. Using a
+   Strings in Java can be shared between different parts of the application. Using a
    dedicated `Object` instance for locking is better.
 
 2. **Exception Handling for `wait()`**:  
@@ -55,25 +55,25 @@ The Kotlin version of the code makes the same corrections
 
 ```kotlin
 class MyClass {
-   private val myLock = Any()
+    private val myLock = Any()
 
-   @Volatile
-   var shouldWait = true
+    @Volatile
+    var shouldWait = true
 
-   fun foo() {
-      synchronized(myLock) {
-         try {
-            if (shouldWait) {
-               myLock.wait()
+    fun foo() {
+        synchronized(myLock) {
+            try {
+                if (shouldWait) {
+                    myLock.wait()
+                }
+                // Perform some work
+                myLock.notifyAll()
+            } catch (e: InterruptedException) {
+                Thread.currentThread().interrupt()
+                println("Thread was interrupted: ${e.message}")
             }
-            // Perform some work
-            myLock.notifyAll()
-         } catch (e: InterruptedException) {
-            Thread.currentThread().interrupt()
-            println("Thread was interrupted: ${e.message}")
-         }
-      }
-   }
+        }
+    }
 }
 ```
 
