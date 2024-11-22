@@ -9,6 +9,13 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.ui.Messages;
 import com.jetbrains.python.sdk.PythonSdkUtil;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -16,8 +23,18 @@ import java.io.InputStreamReader;
 
 public class WordLengthAction extends AnAction {
 
-  private String getPythonScriptPath() {
-    return getClass().getClassLoader().getResource("python/word_length.py").getPath();
+  private String getPythonScriptPath() throws IOException {
+    InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("python/word_length.py");
+    if (resourceStream == null) {
+      throw new FileNotFoundException("Python script not found in resources.");
+    }
+
+    File tempScript = File.createTempFile("word_length", ".py");
+    tempScript.deleteOnExit();
+
+    Files.copy(resourceStream, tempScript.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+    return tempScript.getAbsolutePath();
   }
 
   @Override
