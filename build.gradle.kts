@@ -5,8 +5,8 @@ plugins {
   id("org.jetbrains.intellij") version "1.17.4"
 }
 
-group = "com.intellij.sdk"
-version = "0.1.6"
+group = "com.intellij.sdk.pycharm"
+version = "1.0.0"
 
 repositories {
   mavenCentral()
