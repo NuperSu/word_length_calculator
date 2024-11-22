@@ -1,5 +1,6 @@
 import sys
 
+
 def main():
   text = sys.argv[1]
   words = text.split()
@@ -10,6 +11,7 @@ def main():
     results.append(f"'{word}': {len(clean_word)} characters")
   # Output the results as plain text
   print("\n".join(results))
+
 
 if __name__ == "__main__":
   main()

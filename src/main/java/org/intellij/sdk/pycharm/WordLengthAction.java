@@ -11,11 +11,11 @@ import com.intellij.openapi.ui.Messages;
 import com.jetbrains.python.sdk.PythonSdkUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -24,7 +24,8 @@ import java.io.InputStreamReader;
 public class WordLengthAction extends AnAction {
 
   private String getPythonScriptPath() throws IOException {
-    InputStream resourceStream = getClass().getClassLoader().getResourceAsStream("python/word_length.py");
+    InputStream resourceStream = getClass().getClassLoader()
+        .getResourceAsStream("python/word_length.py");
     if (resourceStream == null) {
       throw new FileNotFoundException("Python script not found in resources.");
     }
@@ -40,7 +41,8 @@ public class WordLengthAction extends AnAction {
   @Override
   public void actionPerformed(@NotNull AnActionEvent event) {
     Project project = event.getProject();
-    String selectedText = event.getData(CommonDataKeys.EDITOR).getSelectionModel().getSelectedText();
+    String selectedText = Objects.requireNonNull(event.getData(CommonDataKeys.EDITOR)).getSelectionModel()
+        .getSelectedText();
     if (selectedText == null || selectedText.isEmpty()) {
       Messages.showMessageDialog(project,
           "No text selected.",
@@ -50,6 +52,7 @@ public class WordLengthAction extends AnAction {
     }
 
     // Get Python SDK
+    assert project != null;
     Module[] modules = ModuleManager.getInstance(project).getModules();
     if (modules.length == 0) {
       Messages.showErrorDialog(project, "No modules found", "Error");
@@ -64,10 +67,6 @@ public class WordLengthAction extends AnAction {
     try {
       // Execute the Python script using the project's Python interpreter
       String scriptPath = getPythonScriptPath();
-      if (scriptPath == null) {
-        Messages.showErrorDialog(project, "Python script not found", "Error");
-        return;
-      }
       ProcessBuilder processBuilder = new ProcessBuilder(
           pythonSdk.getHomePath(),
           scriptPath,
@@ -91,7 +90,7 @@ public class WordLengthAction extends AnAction {
             Messages.getInformationIcon());
       } else {
         Messages.showMessageDialog(project,
-            "Error executing Python script:\n" + outputBuilder.toString(),
+            "Error executing Python script:\n" + outputBuilder,
             "Error",
             Messages.getErrorIcon());
       }
@@ -108,7 +107,7 @@ public class WordLengthAction extends AnAction {
   public void update(@NotNull AnActionEvent e) {
     boolean isTextSelected = false;
     if (e.getData(CommonDataKeys.EDITOR) != null) {
-      isTextSelected = e.getData(CommonDataKeys.EDITOR).getSelectionModel().hasSelection();
+      isTextSelected = Objects.requireNonNull(e.getData(CommonDataKeys.EDITOR)).getSelectionModel().hasSelection();
     }
     e.getPresentation().setEnabledAndVisible(isTextSelected);
   }
