@@ -35,6 +35,14 @@
       <action id="org.intellij.sdk.pycharm.PopupDialogAction" class="org.intellij.sdk.pycharm.PopupDialogAction"
               text="Pop a Dialog" description="SDK PyCharm basics example" icon="SdkIcons.Sdk_default_icon">
       </action>
+
+      <!-- New WordLengthAction -->
+      <action id="org.intellij.sdk.pycharm.WordLengthAction"
+              class="org.intellij.sdk.pycharm.WordLengthAction"
+              text="Print Word Lengths"
+              description="Prints the length of each word in the selected text"
+              icon="SdkIcons.Sdk_default_icon">
+      </action>
     </group>
   </actions>
 
