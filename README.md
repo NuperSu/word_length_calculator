@@ -25,7 +25,7 @@ PyCharm IDE and requires the Python plugin.
 
 1. Clone or download this repository:
    ```bash
-   git clone https://github.com/your-repository/word-length-calculator.git
+   git clone https://github.com/NuperSu/word-length-calculator.git
    cd word-length-calculator
    ```
 
