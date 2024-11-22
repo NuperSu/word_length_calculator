@@ -49,7 +49,7 @@ PyCharm IDE and requires the Python plugin.
 1. Open any text file in PyCharm.
 2. Select some text in the editor.
 3. Open the **Word Length Tools** menu from the main menu bar.
-4. Click **Print Word Lengths**.
+4. Click **Print Word Lengths** (or use the keyboard shortcut `Ctrl+Alt+W`).
 5. A dialog will display the length of each word in the selected text.
 
 ---
