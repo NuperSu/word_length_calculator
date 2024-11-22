@@ -1,10 +1,3 @@
-Here's a `README.md` file that summarizes and documents your plugin project, providing details on
-how to build, run, and use it.
-
----
-
-### README.md
-
 # Word Length Calculator Plugin for PyCharm
 
 The **Word Length Calculator** is a simple plugin for PyCharm that calculates and displays the
