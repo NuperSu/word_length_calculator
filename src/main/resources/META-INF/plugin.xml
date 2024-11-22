@@ -3,16 +3,12 @@
 
 <idea-plugin>
 
-  <!-- Unique id for this plugin. Must stay constant for the life of the plugin. -->
   <id>org.intellij.sdk.pycharm.wordlength</id>
 
-  <!-- Text to display as name on Settings | Plugin page -->
   <name>Word Length Calculator</name>
 
-  <!-- Requires the python plugin to run -->
   <depends>com.intellij.modules.python</depends>
 
-  <!-- Text to display as description on Settings | Plugin page -->
   <description>
     <![CDATA[
       This plugin calculates and prints the length of each word in the selected text. Designed for PyCharm and requires the Python plugin.
@@ -24,14 +20,11 @@
     ]]>
   </change-notes>
 
-  <!-- Text to display as company information on Settings | Plugin page -->
   <vendor url="https://plugins.jetbrains.com">Anton Kosovskii</vendor>
 
   <actions>
-    <!-- Define a new menu group as a last entry in the main menu -->
     <group id="org.intellij.sdk.pycharm.NewGroupedActions" text="Word Length Tools" popup="true">
       <add-to-group group-id="MainMenu" anchor="last"/>
-      <!-- New WordLengthAction -->
       <action id="org.intellij.sdk.pycharm.WordLengthAction"
         class="org.intellij.sdk.pycharm.WordLengthAction"
         text="Print Word Lengths"

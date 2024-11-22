@@ -6,31 +6,20 @@
       <stop offset="100%" stop-color="#1976D2"/>
     </linearGradient>
   </defs>
+  <!-- Outer Circle -->
   <circle cx="60" cy="60" r="58" fill="url(#bgGradient)" stroke="#1565C0" stroke-width="2"/>
-
-  <!-- Inner highlight circle -->
-  <circle cx="60" cy="60" r="48" fill="#64B5F6" opacity="0.2"/>
-
-  <!-- Word Focus Design -->
-  <g transform="translate(30, 35)">
-    <!-- Word Box -->
-    <rect x="0" y="0" width="60" height="20" rx="5" ry="5" fill="#FFFFFF" stroke="#BBDEFB" stroke-width="2"/>
-    <text x="30" y="14" font-family="Arial, sans-serif" font-size="12" fill="#1976D2" text-anchor="middle" font-weight="bold">
-      WORD
-    </text>
-  </g>
-
-  <!-- Ruler-like Design -->
-  <g transform="translate(20, 70)">
-    <!-- Ruler -->
-    <rect x="0" y="0" width="80" height="12" rx="3" ry="3" fill="#FFFFFF" stroke="#BBDEFB" stroke-width="2"/>
-    <!-- Ruler Ticks -->
-    <line x1="10" y1="2" x2="10" y2="10" stroke="#1976D2" stroke-width="1"/>
-    <line x1="20" y1="2" x2="20" y2="10" stroke="#1976D2" stroke-width="1"/>
-    <line x1="30" y1="2" x2="30" y2="10" stroke="#1976D2" stroke-width="1"/>
-    <line x1="40" y1="2" x2="40" y2="10" stroke="#1976D2" stroke-width="1"/>
-    <line x1="50" y1="2" x2="50" y2="10" stroke="#1976D2" stroke-width="1"/>
-    <line x1="60" y1="2" x2="60" y2="10" stroke="#1976D2" stroke-width="1"/>
-    <line x1="70" y1="2" x2="70" y2="10" stroke="#1976D2" stroke-width="1"/>
-  </g>
+  <!-- Inner Circle -->
+  <circle cx="60" cy="60" r="40" fill="#FFFFFF" opacity="0.8"/>
+  <!-- Ruler Icon -->
+  <rect x="45" y="40" width="30" height="10" fill="#1976D2"/>
+  <line x1="50" y1="40" x2="50" y2="50" stroke="#FFFFFF" stroke-width="2"/>
+  <line x1="55" y1="40" x2="55" y2="50" stroke="#FFFFFF" stroke-width="2"/>
+  <line x1="60" y1="40" x2="60" y2="50" stroke="#FFFFFF" stroke-width="2"/>
+  <line x1="65" y1="40" x2="65" y2="50" stroke="#FFFFFF" stroke-width="2"/>
+  <!-- Word Icon -->
+  <rect x="40" y="60" width="40" height="20" rx="4" ry="4" fill="#1976D2"/>
+  <text x="60" y="74" font-family="Arial, sans-serif" font-size="12" fill="#FFFFFF"
+    text-anchor="middle">
+    W
+  </text>
 </svg>
