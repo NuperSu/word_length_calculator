@@ -1,21 +1,52 @@
-# PyCharm Sample [![JetBrains IntelliJ Platform SDK Docs](https://jb.gg/badges/docs.svg)][docs]
-*Reference: [PyCharm Plugin Development in IntelliJ SDK Docs][docs:pycharm]*
+Here's a `README.md` file that summarizes and documents your plugin project, providing details on how to build, run, and use it.
 
-## Quickstart
+---
 
-PyCharm Sample is a plugin that depends on the PyCharm IDE having the proper dependencies specified in the Gradle configuration file.
-The implementation utilizes a simple action added to the *MainMenu* group displaying a message dialog after invoking.
+### README.md
 
-### Actions
+# Word Length Calculator Plugin for PyCharm
 
-| ID                                           | Implementation                              | Base Action Class |
-|----------------------------------------------|---------------------------------------------|-------------------|
-| `org.intellij.sdk.pycharm.PopupDialogAction` | [PopupDialogAction][file:PopupDialogAction] | `AnAction`        |
+The **Word Length Calculator** is a simple plugin for PyCharm that calculates and displays the length of each word in the selected text. This plugin is designed to integrate seamlessly with the PyCharm IDE and requires the Python plugin.
 
-*Reference: [Action System in IntelliJ SDK Docs][docs:actions]*
+---
 
-[docs]: https://plugins.jetbrains.com/docs/intellij/
-[docs:actions]: https://plugins.jetbrains.com/docs/intellij/basic-action-system.html
-[docs:pycharm]: https://plugins.jetbrains.com/docs/intellij/pycharm.html
+## Requirements
 
-[file:PopupDialogAction]: ./src/main/java/org/intellij/sdk/pycharm/PopupDialogAction.java
+- **PyCharm 2024.1.7 or later**
+- **Python Plugin** (com.intellij.modules.python)
+- Java 17 or higher
+
+---
+
+## Installation
+
+1. Clone or download this repository:
+   ```bash
+   git clone https://github.com/your-repository/word-length-calculator.git
+   cd word-length-calculator
+   ```
+
+2. Open the project in IntelliJ IDEA or PyCharm.
+
+3. Build the plugin:
+   ```bash
+   ./gradlew build
+   ```
+
+4. Install the plugin:
+    - Go to **File > Settings > Plugins > ⚙️ > Install Plugin from Disk**.
+    - Select the generated `.zip` file from the `build/distributions/` directory.
+
+5. Restart PyCharm.
+
+---
+
+## How to Use
+
+1. Open any text file in PyCharm.
+2. Select some text in the editor.
+3. Open the **Word Length Tools** menu from the main menu bar.
+4. Click **Print Word Lengths**.
+5. A dialog will display the length of each word in the selected text.
+
+---
